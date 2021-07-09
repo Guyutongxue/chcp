@@ -33,6 +33,9 @@
     "node-gyp": "^8.1.0",
     "tap": "^10.7.3"
   },
+  "peerDependencies": {
+    "node-gyp": "^8.1.0"
+  },
   "dependencies": {},
   "os": ["win32"]
 }
