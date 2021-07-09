@@ -37,12 +37,13 @@ void GetConsoleCodePage(const FunctionCallbackInfo<Value>& args) {
 void SetConsoleCodePage(const FunctionCallbackInfo<Value>& args) {
   DWORD error = 0, chcp = 0, ret = 0;
   Isolate* isolate = args.GetIsolate();
+  Local<v8::Context> context = v8::Context::New(isolate);
   if (!args[0]->IsNumber()) {
     isolate->ThrowException(Exception::TypeError(
         String::NewFromUtf8(isolate, "argument should be a number.")));
     return;
   }
-  chcp = static_cast<int>(args[0]->Int32Value());
+  chcp = static_cast<int>(args[0]->Int32Value(context).FromJust());
   ret = SetConsoleOutputCP(chcp);
   if (!ret)
     error = GetLastError();
