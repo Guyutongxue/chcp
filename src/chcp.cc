@@ -40,7 +40,7 @@ void SetConsoleCodePage(const FunctionCallbackInfo<Value>& args) {
   Local<v8::Context> context = v8::Context::New(isolate);
   if (!args[0]->IsNumber()) {
     isolate->ThrowException(Exception::TypeError(
-        String::NewFromUtf8(isolate, "argument should be a number.")));
+        String::NewFromUtf8(isolate, "argument should be a number.").ToLocalChecked()));
     return;
   }
   chcp = static_cast<int>(args[0]->Int32Value(context).FromJust());
