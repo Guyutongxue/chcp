@@ -34,6 +34,12 @@ void GetConsoleCodePage(const FunctionCallbackInfo<Value>& args) {
   args.GetReturnValue().Set(chcp);
 }
 
+void GetAnsiCodePage(const FunctionCallbackInfo<Value>& args) {
+  Isolate* isolate = args.GetIsolate();
+  Local<Number> chcp = Number::New(isolate, GetACP());
+  args.GetReturnValue().Set(chcp);
+}
+
 void SetConsoleCodePage(const FunctionCallbackInfo<Value>& args) {
   DWORD error = 0, chcp = 0, ret = 0;
   Isolate* isolate = args.GetIsolate();
@@ -52,6 +58,7 @@ void SetConsoleCodePage(const FunctionCallbackInfo<Value>& args) {
 
 void init(Local<Object> exports) {
   NODE_SET_METHOD(exports, "getConsoleCodePage", GetConsoleCodePage);
+  NODE_SET_METHOD(exports, "getAnsiCodePage", GetAnsiCodePage);
   NODE_SET_METHOD(exports, "setConsoleCodePage", SetConsoleCodePage);
 }
 NODE_MODULE(NODE_GYP_MODULE_NAME, init)
